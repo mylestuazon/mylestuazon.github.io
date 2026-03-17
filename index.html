@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Myles Tuazon — Aspiring SOC Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06080a;
+  --s1: #0d1117;
+  --s2: #141b24;
+  --s3: #1c2631;
+  --border: rgba(99,179,237,0.10);
+  --border2: rgba(99,179,237,0.20);
+  --text: #cdd5e0;
+  --muted: #5e7a96;
+  --dim: #3a5068;
+  --blue: #63b3ed;
+  --cyan: #4fd1c5;
+  --orange: #f6ad55;
+  --green: #68d391;
+  --body: 'Outfit', sans-serif;
+  --display: 'Playfair Display', serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 60px;
+  background: rgba(6,8,10,0.90);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-brand-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 10px var(--cyan); }
+  50% { opacity: 0.6; box-shadow: 0 0 4px var(--cyan); }
+}
+.nav-brand-name {
+  font-size: 13px; font-weight: 500;
+  color: var(--text); letter-spacing: 0.04em;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 12px; color: var(--muted);
+  text-decoration: none; font-weight: 400;
+  letter-spacing: 0.03em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--blue); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 0;
+  padding-top: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* scanline effect */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(99,179,237,0.012) 2px,
+    rgba(99,179,237,0.012) 4px
+  );
+  pointer-events: none;
+}
+
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 5rem 3rem 5rem 3rem;
+  position: relative; z-index: 1;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 2rem;
+}
+.eyebrow-line { width: 32px; height: 1px; background: var(--cyan); }
+.eyebrow-text {
+  font-size: 11px; font-weight: 500;
+  color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 6vw, 5.5rem);
+  font-weight: 400; line-height: 1.05;
+  color: #e8f0f8; margin-bottom: 0.25rem;
+}
+.hero-title-accent {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: var(--cyan);
+  display: block; margin-bottom: 2rem;
+}
+.hero-subtitle {
+  font-size: 15px; font-weight: 300;
+  color: var(--muted); margin-bottom: 2.5rem;
+  max-width: 480px; line-height: 1.75;
+}
+.hero-subtitle strong { color: var(--text); font-weight: 500; }
+
+.hero-pills {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3rem;
+}
+.pill {
+  font-size: 11px; font-weight: 500;
+  padding: 5px 14px; border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.pill-blue { background: rgba(99,179,237,0.10); color: var(--blue); border: 1px solid rgba(99,179,237,0.25); }
+.pill-cyan { background: rgba(79,209,197,0.10); color: var(--cyan); border: 1px solid rgba(79,209,197,0.25); }
+.pill-orange { background: rgba(246,173,85,0.10); color: var(--orange); border: 1px solid rgba(246,173,85,0.25); }
+
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-solid {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0.7rem 1.6rem; border-radius: 4px;
+  background: var(--cyan); color: #06080a;
+  font-family: var(--body); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.03em; text-decoration: none;
+  border: none; cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-solid:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0.7rem 1.6rem; border-radius: 4px;
+  background: transparent; color: var(--text);
+  font-family: var(--body); font-size: 13px; font-weight: 400;
+  letter-spacing: 0.03em; text-decoration: none;
+  border: 1px solid var(--border2); cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+/* hero right panel */
+.hero-right {
+  background: var(--s1);
+  border-left: 1px solid var(--border);
+  padding: 5rem 2.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 2rem; position: relative; z-index: 1;
+}
+
+.profile-card {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+}
+.profile-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; color: #06080a;
+  margin-bottom: 1rem; font-family: var(--display);
+}
+.profile-name {
+  font-size: 16px; font-weight: 600; color: #e8f0f8;
+  margin-bottom: 3px;
+}
+.profile-role {
+  font-size: 12px; color: var(--cyan); margin-bottom: 1rem;
+  font-weight: 400;
+}
+.profile-meta {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.profile-meta-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--muted);
+}
+.meta-icon {
+  width: 16px; height: 16px; border-radius: 3px;
+  background: var(--border); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 9px; flex-shrink: 0;
+}
+
+.progress-card {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+}
+.progress-card-title {
+  font-size: 11px; font-weight: 500;
+  color: var(--muted); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.cert-progress-row {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.cp-item { display: flex; flex-direction: column; gap: 4px; }
+.cp-top {
+  display: flex; justify-content: space-between;
+  font-size: 11px;
+}
+.cp-label { color: var(--muted); }
+.cp-val { color: var(--cyan); font-weight: 500; }
+.cp-bar {
+  height: 4px; background: var(--s3); border-radius: 2px; overflow: hidden;
+}
+.cp-fill { height: 100%; border-radius: 2px; }
+.cp-fill.done { background: var(--cyan); }
+.cp-fill.partial { background: var(--orange); }
+
+.transfer-card {
+  background: var(--s2);
+  border: 1px solid rgba(104,211,145,0.2);
+  border-radius: 12px; padding: 1.25rem;
+}
+.transfer-card-title {
+  font-size: 11px; font-weight: 500;
+  color: var(--green); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.transfer-list { display: flex; flex-direction: column; gap: 6px; }
+.transfer-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--muted);
+}
+.transfer-item::before {
+  content: '↗';
+  color: var(--green); font-size: 11px; flex-shrink: 0;
+}
+
+/* ── SECTIONS ── */
+.section-wrap {
+  padding: 6rem 3rem;
+  border-top: 1px solid var(--border);
+  max-width: 1200px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.section-wrap.full { max-width: none; }
+
+.sec-header { margin-bottom: 3.5rem; }
+.sec-eyebrow {
+  font-size: 11px; font-weight: 500; color: var(--cyan);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 0.75rem;
+}
+.sec-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--cyan); }
+.sec-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400; color: #e8f0f8; line-height: 1.15;
+}
+.sec-title em { font-style: italic; color: var(--cyan); }
+
+/* ── ABOUT ── */
+.about-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+.about-story p {
+  font-size: 14.5px; font-weight: 300; color: rgba(205,213,224,0.75);
+  line-height: 1.85; margin-bottom: 1.4rem;
+}
+.about-story p:last-child { margin-bottom: 0; }
+.about-story strong { color: var(--text); font-weight: 500; }
+
+.about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+.sidebar-card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.25rem 1.5rem;
+}
+.sc-label {
+  font-size: 10px; font-weight: 500; color: var(--muted);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.sc-val {
+  font-size: 14px; color: var(--text); font-weight: 400;
+}
+.sc-val.big {
+  font-family: var(--display);
+  font-size: 2.4rem; font-weight: 400; color: var(--cyan);
+  line-height: 1;
+}
+
+.tech-meter {
+  display: flex; align-items: center; gap: 10px; margin-top: 4px;
+}
+.meter-track {
+  flex: 1; height: 6px; background: var(--s3);
+  border-radius: 3px; overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  border-radius: 3px; width: 70%;
+}
+.meter-label { font-size: 12px; color: var(--cyan); font-weight: 500; }
+
+/* ── SKILLS ── */
+.skills-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.skill-tile {
+  background: var(--s1); padding: 2rem;
+  transition: background 0.2s;
+  position: relative; overflow: hidden;
+}
+.skill-tile::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--cyan);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s;
+}
+.skill-tile:hover { background: var(--s2); }
+.skill-tile:hover::after { transform: scaleX(1); }
+.skill-tile.span2 { grid-column: span 2; }
+.skill-tile.featured { background: var(--s2); }
+
+.st-num { font-size: 11px; color: var(--dim); margin-bottom: 0.75rem; font-weight: 500; }
+.st-title {
+  font-family: var(--display); font-size: 1.2rem; font-weight: 400;
+  color: #e8f0f8; margin-bottom: 0.5rem;
+}
+.st-desc { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+.st-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-size: 10px; padding: 3px 9px;
+  border-radius: 4px; font-weight: 500;
+}
+.chip-done { background: rgba(79,209,197,0.1); color: var(--cyan); border: 1px solid rgba(79,209,197,0.2); }
+.chip-soon { background: rgba(94,122,150,0.15); color: var(--dim); border: 1px solid rgba(94,122,150,0.2); }
+.chip-cs {
+  background: rgba(246,173,85,0.1); color: var(--orange);
+  border: 1px solid rgba(246,173,85,0.2);
+}
+
+/* ── TRANSFER SKILLS ── */
+.transfer-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.transfer-tile {
+  background: var(--s1); padding: 1.5rem;
+  transition: background 0.2s;
+}
+.transfer-tile:hover { background: var(--s2); }
+.tt-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.tt-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+.tt-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.tt-badge {
+  display: inline-block; margin-top: 0.75rem;
+  font-size: 10px; padding: 2px 8px;
+  background: rgba(104,211,145,0.1); color: var(--green);
+  border: 1px solid rgba(104,211,145,0.2); border-radius: 3px;
+}
+
+/* ── CERTS ── */
+.cert-timeline {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.ct-item {
+  display: grid;
+  grid-template-columns: 56px 20px 1fr auto;
+  align-items: center; gap: 1.25rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--s1);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.ct-item:last-child { border-bottom: none; }
+.ct-item:hover { background: var(--s2); }
+.ct-num { font-size: 12px; color: var(--dim); font-weight: 500; text-align: center; }
+.ct-dot-wrap { display: flex; flex-direction: column; align-items: center; }
+.ct-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.ct-dot.done { background: var(--cyan); box-shadow: 0 0 10px rgba(79,209,197,0.6); }
+.ct-dot.active {
+  background: transparent; border: 2px solid var(--orange);
+  box-shadow: 0 0 8px rgba(246,173,85,0.5);
+  animation: spin-border 3s linear infinite;
+}
+@keyframes spin-border {
+  0%,100% { box-shadow: 0 0 8px rgba(246,173,85,0.5); }
+  50% { box-shadow: 0 0 14px rgba(246,173,85,0.8); }
+}
+.ct-dot.pending { background: transparent; border: 1px solid var(--border2); }
+.ct-body { min-width: 0; }
+.ct-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.ct-sub { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.ct-badge {
+  font-size: 10px; font-weight: 500;
+  padding: 4px 10px; border-radius: 4px;
+  letter-spacing: 0.06em; white-space: nowrap;
+}
+.ct-badge.done { color: var(--cyan); border: 1px solid rgba(79,209,197,0.3); background: rgba(79,209,197,0.08); }
+.ct-badge.active { color: var(--orange); border: 1px solid rgba(246,173,85,0.3); background: rgba(246,173,85,0.08); }
+.ct-badge.pending { color: var(--dim); border: 1px solid var(--border); }
+
+/* ── PORTFOLIO ── */
+.port-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.port-card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem;
+  display: flex; flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.port-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+.port-card-glow {
+  position: absolute; top: -30px; right: -30px;
+  width: 100px; height: 100px; border-radius: 50%;
+  background: rgba(79,209,197,0.06);
+  pointer-events: none;
+}
+.port-tag {
+  font-size: 10px; font-weight: 600;
+  color: var(--cyan); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.85rem;
+}
+.port-title {
+  font-family: var(--display); font-size: 1.15rem; font-weight: 400;
+  color: #e8f0f8; margin-bottom: 0.75rem; line-height: 1.3;
+}
+.port-desc { font-size: 13px; color: var(--muted); line-height: 1.75; flex: 1; }
+.port-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1.25rem; }
+.port-chip {
+  font-size: 10px; padding: 3px 8px;
+  border: 1px solid var(--border2); color: var(--dim); border-radius: 3px;
+}
+.port-card.upcoming {
+  opacity: 0.45;
+  border-style: dashed;
+}
+.port-card.upcoming:hover { transform: none; border-color: var(--border); }
+.port-card.upcoming .port-tag { color: var(--dim); }
+.port-card.upcoming .port-card-glow { display: none; }
+
+/* ── CONTACT ── */
+.contact-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.contact-left p {
+  font-size: 14.5px; font-weight: 300; color: var(--muted);
+  line-height: 1.8; margin-bottom: 2rem;
+}
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 1rem 1.25rem;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px; text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.contact-link:hover { border-color: var(--blue); transform: translateX(4px); }
+.cl-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.cl-icon.email { background: rgba(99,179,237,0.1); }
+.cl-icon.linkedin { background: rgba(79,209,197,0.1); }
+.cl-body { min-width: 0; }
+.cl-label { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.cl-val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+.contact-right {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem;
+}
+.cr-title {
+  font-family: var(--display);
+  font-size: 1.4rem; font-weight: 400; color: #e8f0f8;
+  margin-bottom: 1.25rem; line-height: 1.3;
+}
+.cr-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.cr-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--muted); line-height: 1.55;
+}
+.cr-list li::before {
+  content: '✓'; color: var(--green); font-size: 12px;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.75rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
+}
+.footer-l { font-size: 12px; color: var(--dim); }
+.footer-r {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--dim);
+}
+.footer-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 6px var(--cyan);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* ── FADE IN ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.show { opacity: 1; transform: translateY(0); }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 4rem 1.5rem 3rem; }
+  .section-wrap { padding: 4rem 1.5rem; }
+  .about-layout, .contact-split { grid-template-columns: 1fr; gap: 2.5rem; }
+  .skills-bento { grid-template-columns: 1fr; }
+  .skill-tile.span2 { grid-column: span 1; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .ct-item { grid-template-columns: 36px 16px 1fr; }
+  .ct-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">
+    <div class="nav-brand-dot"></div>
+    <span class="nav-brand-name">Myles Tuazon</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Cybersecurity Portfolio · SOC Analyst Track · Philippines</span>
+    </div>
+
+    <h1 class="hero-title">Myles Anwell<br>C. Tuazon</h1>
+    <span class="hero-title-accent">Aspiring SOC Analyst</span>
+
+    <p class="hero-subtitle">
+      <strong>Customer service professional</strong> making a deliberate career shift into cybersecurity.
+      5 of 8 courses done on the Google Cybersecurity Certificate —
+      bringing communication skills, calm under pressure, and a genuinely techy mindset
+      to security operations.
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill pill-cyan">Google Cybersec Cert — 5/8</span>
+      <span class="pill pill-blue">Network Security</span>
+      <span class="pill pill-blue">Threat Analysis</span>
+      <span class="pill pill-orange">Career Shifter</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn-solid">View My Work →</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Profile card -->
+    <div class="profile-card">
+      <div class="profile-avatar">MT</div>
+      <div class="profile-name">Myles Anwell C. Tuazon</div>
+      <div class="profile-role">Aspiring SOC Analyst · Career Shifter</div>
+      <div class="profile-meta">
+        <div class="profile-meta-row">
+          <div class="meta-icon">📍</div>
+          Philippines (Open to remote)
+        </div>
+        <div class="profile-meta-row">
+          <div class="meta-icon">💼</div>
+          Customer Service Rep → Cybersecurity
+        </div>
+        <div class="profile-meta-row">
+          <div class="meta-icon">🎓</div>
+          Google Cybersecurity Certificate
+        </div>
+      </div>
+    </div>
+
+    <!-- Cert progress -->
+    <div class="progress-card">
+      <div class="progress-card-title">Certificate Progress</div>
+      <div class="cert-progress-row">
+        <div class="cp-item">
+          <div class="cp-top">
+            <span class="cp-label">Courses completed</span>
+            <span class="cp-val">5 / 8</span>
+          </div>
+          <div class="cp-bar"><div class="cp-fill done" style="width:62.5%"></div></div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-top">
+            <span class="cp-label">Portfolio activities</span>
+            <span class="cp-val">5 done</span>
+          </div>
+          <div class="cp-bar"><div class="cp-fill done" style="width:62.5%"></div></div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-top">
+            <span class="cp-label">Tech comfort level</span>
+            <span class="cp-val">7 / 10</span>
+          </div>
+          <div class="cp-bar"><div class="cp-fill partial" style="width:70%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transferable value -->
+    <div class="transfer-card">
+      <div class="transfer-card-title">Transferable strengths</div>
+      <div class="transfer-list">
+        <div class="transfer-item">Client communication & de-escalation</div>
+        <div class="transfer-item">Fast learner — techy & self-directed</div>
+        <div class="transfer-item">Process documentation & ticketing</div>
+        <div class="transfer-item">Calm, methodical under pressure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="sec-header">
+    <div class="sec-eyebrow">About me</div>
+    <h2 class="sec-title">Customer service taught me<br><em>exactly</em> what a SOC needs.</h2>
+  </div>
+  <div class="about-layout reveal">
+    <div class="about-story">
+      <p>
+        I'm Myles Tuazon, a Customer Service Representative based in the Philippines who's
+        making a deliberate, well-planned shift into cybersecurity. I'm currently halfway
+        through the <strong>Google Cybersecurity Professional Certificate</strong> on Coursera,
+        and I've been building hands-on skills in threat analysis, network security, and
+        risk management since day one.
+      </p>
+      <p>
+        I've always been the "techy person" in the room — the one who edits HTML just to see
+        what breaks, inspects page elements out of curiosity, and figures out software by
+        exploring it. I'd rate my technical comfort at a solid <strong>7/10</strong>: I'm not
+        a developer, but I pick up technical concepts fast and I'm not afraid to go deep.
+      </p>
+      <p>
+        My customer service background isn't a gap — it's an advantage. SOC teams don't just
+        need people who can read logs; they need people who can communicate incidents clearly,
+        stay composed during high-pressure situations, and write reports that non-technical
+        stakeholders actually understand. That's exactly what I've been doing for years.
+      </p>
+      <p>
+        I'm targeting <strong>Tier 1 SOC Analyst</strong> roles where I can contribute to
+        threat monitoring and incident triage. I bring curiosity, discipline, and a genuine
+        drive to protect systems and the people who use them.
+      </p>
+    </div>
+    <div class="about-sidebar">
+      <div class="sidebar-card">
+        <div class="sc-label">Current role</div>
+        <div class="sc-val">Customer Service Representative</div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sc-label">Target role</div>
+        <div class="sc-val" style="color: var(--cyan);">Tier 1 SOC Analyst</div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sc-label">Cert completion</div>
+        <div class="sc-val big">62%</div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sc-label">Tech comfort level</div>
+        <div class="tech-meter">
+          <div class="meter-track"><div class="meter-fill"></div></div>
+          <div class="meter-label">7 / 10</div>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sc-label">Location</div>
+        <div class="sc-val">Philippines · Open to remote</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSFERABLE SKILLS -->
+<div class="section-wrap" id="skills">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Skills</div>
+    <h2 class="sec-title">Technical foundations.<br><em>Human edge.</em></h2>
+  </div>
+
+  <div class="skills-bento reveal" style="margin-bottom: 2rem;">
+    <div class="skill-tile">
+      <div class="st-num">01</div>
+      <div class="st-title">Security Fundamentals</div>
+      <div class="st-desc">CIA Triad, NIST CSF, 8 security domains, ethics in cybersecurity</div>
+      <div class="st-chips">
+        <span class="chip chip-done">CIA Triad</span>
+        <span class="chip chip-done">NIST CSF</span>
+        <span class="chip chip-done">Security domains</span>
+        <span class="chip chip-done">Ethics</span>
+      </div>
+    </div>
+    <div class="skill-tile">
+      <div class="st-num">02</div>
+      <div class="st-title">Risk & Threat Management</div>
+      <div class="st-desc">Risk analysis, security audits, SIEM concepts, incident playbooks</div>
+      <div class="st-chips">
+        <span class="chip chip-done">Risk analysis</span>
+        <span class="chip chip-done">Security audits</span>
+        <span class="chip chip-done">SIEM basics</span>
+        <span class="chip chip-done">Playbooks</span>
+      </div>
+    </div>
+    <div class="skill-tile">
+      <div class="st-num">03</div>
+      <div class="st-title">Network Security</div>
+      <div class="st-desc">TCP/IP, OSI model, firewall concepts, VPNs, traffic analysis, hardening</div>
+      <div class="st-chips">
+        <span class="chip chip-done">TCP/IP</span>
+        <span class="chip chip-done">OSI Model</span>
+        <span class="chip chip-done">Firewalls</span>
+        <span class="chip chip-done">VPNs</span>
+        <span class="chip chip-done">Wireshark</span>
+      </div>
+    </div>
+    <div class="skill-tile">
+      <div class="st-num">04</div>
+      <div class="st-title">Linux & SQL</div>
+      <div class="st-desc">Linux command line, file permissions, bash, SQL queries for log analysis</div>
+      <div class="st-chips">
+        <span class="chip chip-done">Linux CLI</span>
+        <span class="chip chip-done">chmod / chown</span>
+        <span class="chip chip-done">SQL filters</span>
+        <span class="chip chip-done">Bash</span>
+      </div>
+    </div>
+    <div class="skill-tile">
+      <div class="st-num">05</div>
+      <div class="st-title">Assets, Threats & Vulnerabilities</div>
+      <div class="st-desc">Asset classification, threat modeling, vulnerability assessments</div>
+      <div class="st-chips">
+        <span class="chip chip-done">Asset mgmt</span>
+        <span class="chip chip-done">Threat modeling</span>
+        <span class="chip chip-done">Vulnerability assessment</span>
+      </div>
+    </div>
+    <div class="skill-tile">
+      <div class="st-num">06 — In Progress</div>
+      <div class="st-title">Detection & Response</div>
+      <div class="st-desc">IDS/IPS, Splunk, Chronicle SIEM, incident handler journal</div>
+      <div class="st-chips">
+        <span class="chip chip-soon">Splunk</span>
+        <span class="chip chip-soon">Chronicle</span>
+        <span class="chip chip-soon">IDS/IPS</span>
+        <span class="chip chip-soon">Alert triage</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-header" style="margin-bottom: 1.5rem;">
+    <div class="sec-eyebrow">From customer service to the SOC</div>
+    <h3 style="font-family: var(--display); font-size: 1.4rem; font-weight: 400; color: #e8f0f8;">
+      Skills that <em>transfer directly</em>
+    </h3>
+  </div>
+  <div class="transfer-grid reveal">
+    <div class="transfer-tile">
+      <div class="tt-icon">🗣️</div>
+      <div class="tt-title">Incident Communication</div>
+      <div class="tt-desc">Years of explaining complex issues to non-technical people clearly and calmly.</div>
+      <div class="tt-badge">Direct SOC value</div>
+    </div>
+    <div class="transfer-tile">
+      <div class="tt-icon">📋</div>
+      <div class="tt-title">Ticketing & Documentation</div>
+      <div class="tt-desc">Used CRM and ticketing systems daily. Clean, structured documentation is second nature.</div>
+      <div class="tt-badge">Direct SOC value</div>
+    </div>
+    <div class="transfer-tile">
+      <div class="tt-icon">🧠</div>
+      <div class="tt-title">Fast Learner</div>
+      <div class="tt-desc">Self-taught HTML editing, browser inspection, and system exploration. Comfort with ambiguity.</div>
+      <div class="tt-badge">Technical edge</div>
+    </div>
+    <div class="transfer-tile">
+      <div class="tt-icon">⚡</div>
+      <div class="tt-title">Composure Under Pressure</div>
+      <div class="tt-desc">Handled escalations and high-pressure situations daily. Calm, methodical, solution-focused.</div>
+      <div class="tt-badge">Direct SOC value</div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div class="section-wrap" id="certs">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Certifications</div>
+    <h2 class="sec-title">Google Cybersecurity<br><em>Professional Certificate</em></h2>
+  </div>
+  <div class="cert-timeline reveal">
+    <div class="ct-item">
+      <span class="ct-num">01</span>
+      <div class="ct-dot-wrap"><div class="ct-dot done"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Foundations of Cybersecurity</div>
+        <div class="ct-sub">Core concepts, NIST framework, 8 security domains, professional ethics</div>
+      </div>
+      <span class="ct-badge done">Completed</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">02</span>
+      <div class="ct-dot-wrap"><div class="ct-dot done"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Play It Safe: Manage Security Risks</div>
+        <div class="ct-sub">Risk frameworks, security audits, SIEM tools, incident response playbooks</div>
+      </div>
+      <span class="ct-badge done">Completed</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">03</span>
+      <div class="ct-dot-wrap"><div class="ct-dot done"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Connect and Protect: Networks & Network Security</div>
+        <div class="ct-sub">TCP/IP, OSI model, firewalls, VPNs, network hardening, traffic analysis</div>
+      </div>
+      <span class="ct-badge done">Completed</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">04</span>
+      <div class="ct-dot-wrap"><div class="ct-dot done"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Tools of the Trade: Linux and SQL</div>
+        <div class="ct-sub">Linux CLI, bash, file permissions, SQL queries for security analysis</div>
+      </div>
+      <span class="ct-badge done">Completed</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">05</span>
+      <div class="ct-dot-wrap"><div class="ct-dot done"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Assets, Threats, and Vulnerabilities</div>
+        <div class="ct-sub">Asset classification, threat modeling, vulnerability assessment</div>
+      </div>
+      <span class="ct-badge done">Completed</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">06</span>
+      <div class="ct-dot-wrap"><div class="ct-dot active"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Sound the Alarm: Detection & Response</div>
+        <div class="ct-sub">IDS/IPS, SIEM tools (Splunk, Chronicle), incident handler journal</div>
+      </div>
+      <span class="ct-badge active">In Progress</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">07</span>
+      <div class="ct-dot-wrap"><div class="ct-dot pending"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Automate Cybersecurity Tasks with Python</div>
+        <div class="ct-sub">Python scripting, log parsing, file automation for security operations</div>
+      </div>
+      <span class="ct-badge pending">Upcoming</span>
+    </div>
+    <div class="ct-item">
+      <span class="ct-num">08</span>
+      <div class="ct-dot-wrap"><div class="ct-dot pending"></div></div>
+      <div class="ct-body">
+        <div class="ct-title">Put It to Work: Prepare for Cybersecurity Jobs</div>
+        <div class="ct-sub">Job search, resume, escalation procedures, professional communication</div>
+      </div>
+      <span class="ct-badge pending">Upcoming</span>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="section-wrap" id="portfolio">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Portfolio activities</div>
+    <h2 class="sec-title">Hands-on work.<br><em>Real deliverables.</em></h2>
+  </div>
+  <div class="port-grid reveal">
+
+    <div class="port-card">
+      <div class="port-card-glow"></div>
+      <div class="port-tag">Course 01 · Professional Statement</div>
+      <div class="port-title">Why I Chose Cybersecurity</div>
+      <div class="port-desc">
+        A written professional statement documenting my motivation for shifting into cybersecurity,
+        my career goal of becoming a SOC Analyst, and the strengths I carry from customer service —
+        communication, documentation, and composure under pressure.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">Professional communication</span>
+        <span class="port-chip">Career goals</span>
+        <span class="port-chip">Security mindset</span>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-card-glow"></div>
+      <div class="port-tag">Course 02 · Security Audit</div>
+      <div class="port-title">Internal Security Audit — Botium Toys</div>
+      <div class="port-desc">
+        Performed a mock internal security audit using the NIST CSF and a controls & compliance
+        checklist. Identified access control gaps, encryption weaknesses, and regulatory
+        non-compliance across PCI DSS and GDPR. Documented prioritised remediation recommendations.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">NIST CSF</span>
+        <span class="port-chip">Risk analysis</span>
+        <span class="port-chip">PCI DSS</span>
+        <span class="port-chip">GDPR</span>
+        <span class="port-chip">Controls assessment</span>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-card-glow"></div>
+      <div class="port-tag">Course 02 · Incident Response</div>
+      <div class="port-title">Incident Handler Journal — Ransomware Scenario</div>
+      <div class="port-desc">
+        Documented a simulated ransomware attack using a structured incident handler journal.
+        Identified the attack vector, affected systems, and produced a response timeline
+        covering preparation, detection, containment, eradication, and recovery phases.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">Incident response</span>
+        <span class="port-chip">Documentation</span>
+        <span class="port-chip">Ransomware analysis</span>
+        <span class="port-chip">IR lifecycle</span>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-card-glow"></div>
+      <div class="port-tag">Course 03 · Network Analysis</div>
+      <div class="port-title">Network Incident Analysis — DNS & ICMP Traffic</div>
+      <div class="port-desc">
+        Analysed anomalous DNS and ICMP traffic in a simulated network attack using a
+        protocol analyser. Identified a UDP flood attack, documented findings, and produced
+        a written incident report with recommended network hardening measures.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">Wireshark</span>
+        <span class="port-chip">DNS/ICMP</span>
+        <span class="port-chip">Traffic analysis</span>
+        <span class="port-chip">Incident reporting</span>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-card-glow"></div>
+      <div class="port-tag">Course 03 · Hardening</div>
+      <div class="port-title">OS Hardening Techniques Report</div>
+      <div class="port-desc">
+        Investigated a web server brute-force attack scenario. Documented the attack method
+        and produced a hardening report recommending MFA implementation, login attempt
+        rate-limiting, and baseline OS configuration enforcement.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">OS hardening</span>
+        <span class="port-chip">Brute-force</span>
+        <span class="port-chip">MFA</span>
+        <span class="port-chip">Security recommendations</span>
+      </div>
+    </div>
+
+    <div class="port-card upcoming">
+      <div class="port-tag">Course 04 · Coming Soon</div>
+      <div class="port-title">Linux File Permissions Lab</div>
+      <div class="port-desc">
+        Hands-on lab managing Linux file permissions and access controls via CLI.
+        Identifying and correcting unauthorised permission settings in a simulated environment.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">Linux CLI</span>
+        <span class="port-chip">chmod / chown</span>
+        <span class="port-chip">Access control</span>
+      </div>
+    </div>
+
+    <div class="port-card upcoming">
+      <div class="port-tag">Course 04 · Coming Soon</div>
+      <div class="port-title">SQL Security Queries</div>
+      <div class="port-desc">
+        Using SQL to filter and analyse security log data — identifying failed login attempts,
+        suspicious access patterns, and device update records across a simulated corporate DB.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">SQL</span>
+        <span class="port-chip">Log analysis</span>
+        <span class="port-chip">Security queries</span>
+      </div>
+    </div>
+
+    <div class="port-card upcoming">
+      <div class="port-tag">Course 07 · Coming Soon</div>
+      <div class="port-title">Python Security Automation Script</div>
+      <div class="port-desc">
+        Python script that parses an IP allow-list, removes flagged addresses, and updates
+        the file automatically — a practical security operations automation task.
+      </div>
+      <div class="port-chips">
+        <span class="port-chip">Python</span>
+        <span class="port-chip">File I/O</span>
+        <span class="port-chip">Automation</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section-wrap" id="contact">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Contact</div>
+    <h2 class="sec-title">Open to entry-level<br><em>SOC Analyst roles.</em></h2>
+  </div>
+  <div class="contact-split reveal">
+    <div class="contact-left">
+      <p>
+        Based in the Philippines and available for remote work. I'm actively looking for
+        Tier 1 SOC Analyst positions where I can grow fast, contribute from day one,
+        and keep building on the foundation I've started here.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:mylestuazon@gmail.com" class="contact-link">
+          <div class="cl-icon email">✉️</div>
+          <div class="cl-body">
+            <div class="cl-label">Email</div>
+            <div class="cl-val">mylestuazon@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/myles-tuazon-21710b198/" target="_blank" class="contact-link">
+          <div class="cl-icon linkedin">in</div>
+          <div class="cl-body">
+            <div class="cl-label">LinkedIn</div>
+            <div class="cl-val">myles-tuazon-21710b198</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="cr-title">What I bring to a SOC team on day one</div>
+      <ul class="cr-list">
+        <li>Clear, concise incident documentation — trained by years of customer escalations</li>
+        <li>Calm and methodical under pressure — second nature from customer service</li>
+        <li>Fast technical learner — self-taught HTML, DevTools, and system exploration</li>
+        <li>5 completed cert courses with hands-on portfolio activities</li>
+        <li>Genuine curiosity about how systems work and how attackers think</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">© 2025 Myles Anwell C. Tuazon · All rights reserved</div>
+  <div class="footer-r">
+    <div class="footer-dot"></div>
+    Google Cybersecurity Professional Certificate — In Progress
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  reveals.forEach(r => io.observe(r));
+
+  // Nav active link
+  const secs = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : '';
+    });
+  });
+</script>
+</body>
+</html>
